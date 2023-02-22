@@ -12,8 +12,8 @@
     <title>Tugas 1a</title>
 </head>
 <body>
-    <h2>
-        <i> <?php echo " \"$benda saya $bentuk, $bentuk $benda saya\" " ?> </i>   
-    </h2>
+    <h1>
+        <i> <?php echo " \"$benda saya $bentuk, $bentuk $benda saya.\" " ?> </i>   
+    </h1>
 </body>
 </html>
