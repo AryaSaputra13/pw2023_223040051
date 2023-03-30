@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+
+/* NavBar */
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 0;
+    color: #487ee2;
+    z-index: 2px;
+    background-color: red;
+}
+
+nav .logo{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 23px;
+}
+
+nav h4 {
+    font-size: 25px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    width: 40%;
+    justify-content: space-around;
+}
+
+nav ul li a {
+    color: white;
+}
+
+nav ul li a:hover{
+    color: #dde9eccc;
+}
+
+/* Hamburger menu */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    height: 20px;
+    justify-content: space-between;
+    position: relative;
+}
+
+.menu-toggle input {
+    position: absolute;
+    width: 40px;
+    height: 28px;
+    left: -5px;
+    top: -3px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+
+/* Hamburger Animation */
+.menu-toggle span:nth-child(2) {
+    transform-origin: 0 0;   
+}
+
+.menu-toggle span:nth-child(4) {
+    transform-origin: 0 100%;   
+}
+
+.menu-toggle input:checked ~ span:nth-child(2) {
+    background-color: white;
+    transform: rotate(45deg) translate(-1px,-1px);
+}
+
+.menu-toggle input:checked ~ span:nth-child(4) {
+    background-color: white;
+    transform: rotate(-43deg) translate(-1px, 0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(3) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(5) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+/* content */
+.content {
+    border: 1px solid black;
+}
+
+
+/* respon */
+@media (min-width: 587px) {
+    .project {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 768px) {
+    .project {
+        grid-template-columns: repeat (4, 1fr);
+    }
+}
+
+/* tablet */
+@media screen and (max-width: 768px) {
+    nav ul{
+        width: 50%;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 587px) {
+    body {
+        height: auto;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+    nav ul {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        height: 100vh;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+        z-index: 8px;
+        transform: translateX(100%);
+        transition: all 1.2s;
+        opacity: 0;
+    }
+
+    nav ul li a {
+        z-index: 8px;
+    }
+
+    nav ul a {
+        z-index: 8px;
+    }
+
+    nav ul.slide {
+        background-color: #6161e7;
+        opacity: 0.8;
+        z-index: 8px;
+        transform: translateX(0);
+    }
+
+    .backgroundp {
+        margin-top: 4rem;
+    }
+
+    .sub-container {
+        margin-top: 4rem;
+    }
+}
