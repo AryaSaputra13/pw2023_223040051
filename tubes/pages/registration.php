@@ -1,48 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
 
-	<!-- css -->
-	<link rel="stylesheet" href="../css/log_reg.css">
+require("../assets/parts/login-part/login-reg-header.php");
+require("../assets/function/functions.php");
 
-    <!-- boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
-	<title>Registration</title>
-</head>
-<body style="border: 1px solid black;">
-	<div class="card mb-3" style="max-width: 540px;">
-		<div class="row g-0">
-			<div class="col-md-4">
-			    <img src="../img/cardimg/strategy-study.jpg" class="img-fluid rounded-start" alt="strategy-study" style="height: 240px;">
-			</div>
-			<div class="col-md-8">
-				<div class="card-body">
-					<h5 class="card-title">Registration</h5>
-					<form action="" method="post">
-					<div class="row-md-2">
-                            <label for="validationDefault01" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="validationDefault01" value="Mark Steve" required>
-                        </div>
-                        <div class="row-md-2">
-                            <label for="validationDefault01" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="validationDefault01" value="Example123@gmail.com" required>
-                        </div>
-                        <div class="row-ed-2">
-                            <label for="validationDefault02" class="form-label">Passwords</label>
-                            <input type="text" class="form-control" id="validationDefault02"required>
-                        </div>
-						<div class="section" style="margin-bottom: 1rem;">
-							<button class="btn btn-outline-dark" type="submit">Submit</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+if( isset($_POST["signup"]) ) {
+    
+  if( registration_siswa($_POST) > 0) {
+      echo "
+      <script>
+        alert('Success to Sign-up');
+        document.location.href = 'login.php';
+      </script>
+      ";
+  } else {
+    echo mysqli_error($cdb);
+  }
+  
+}
+
+?>
+
+	<div class="form login_form">
+        <form action="" method="post">
+            <h2>Sig-up</h2>
+			      <div class="input_box">
+                <i class="uil uil-user"></i>
+              	<input type="text" name="username" placeholder="Enter your Username" pattern="[A-Za-z0-9\s]*" autocomplete="off" required />
+            </div>
+            <div class="input_box">
+              	<input type="password" name="password" placeholder="Enter your password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+              	<i class="uil uil-lock password"></i>
+              	<i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <div class="input_box">
+              	<input type="password" name="password2" placeholder="Confirmd password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+              	<i class="uil uil-lock password"></i>
+              	<i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <button class="submit" name="signup">Sign-up</button>
+            <div class="back" style="font-size: 12px; margin: 1rem 0 1rem 5rem;">Ingin kembali? <a href="login.php" id="back">Kembali?</a></div>
+        </form>
+  </div>
+
+<?php require("../assets/parts/login-part/login-reg-footer.php"); ?>
