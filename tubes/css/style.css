@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 * {
     margin: 0;
     padding: 0;
     outline: 0;
 }
 
+=======
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 .calendar {
     background-color: honeydew;
     color: black;
@@ -19,5 +22,9 @@
     padding: 30px;
     position: absolute;
     box-shadow: 0 0 5px 0 #ccc;
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592

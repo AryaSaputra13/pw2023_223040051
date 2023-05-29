@@ -1,4 +1,5 @@
 <?php 
+<<<<<<< HEAD
 require('../../assets/sessions/session-admin.php');
 
 require('../../assets/function/functions.php'); 
@@ -29,6 +30,15 @@ if( isset($_POST["search"]) ) {
 
 if( isset($_POST["submit"]) ) {
 
+=======
+require('../../assets/admin-part/header-admin.php');
+require('../../assets/admin-part/nav-admin.php');
+require('../../assets/function/functions.php'); 
+
+$pengajar = query_pengajar("SELECT * FROM pengajar");
+
+if( isset($_POST["submit"]) ) {
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
     
     if( add_pengajar($_POST) > 0) {
         echo "
@@ -55,6 +65,7 @@ if( isset($_POST["submit"]) ) {
     <table id="daftar-pengajar" class="table table-sm" style="text-align: center;">
         <thead>
             <tr>
+<<<<<<< HEAD
                 <th class="col"></th>
                 <th class="col" scope="col""></th>
                 <th class="col" scope="col"></th>
@@ -67,6 +78,8 @@ if( isset($_POST["submit"]) ) {
                 </th>
             </tr>
             <tr>
+=======
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                 <th class="col" scope="col">NO</th>
                 <th class="col" scope="col"">Gambar</th>
                 <th class="col" scope="col">NIP</th>
@@ -84,11 +97,16 @@ if( isset($_POST["submit"]) ) {
                 <td><?= $teacher["NIP"]; ?></td>
                 <td><?= $teacher["nama"]; ?></td>
                 <td>
+<<<<<<< HEAD
                     <a href="update-pengajar.php?id=<?= $teacher["id"]; ?>">Ubah</a> |
+=======
+                    <a href="side/update-pengajar.php?id=<?= $teacher["id"]; ?>">Ubah</a> |
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                     <a href="side/delete-pengajar.php?id=<?= $teacher["id"]; ?>" onclick="return confirm('Confirm');">Hapus</a>
                 </td>
             </tr>
             <?php endforeach ; ?>
+<<<<<<< HEAD
             <form action="" method="post" enctype="multipart/form-data">
                 <tr>
                     <th scope="row">+</th>
@@ -100,6 +118,19 @@ if( isset($_POST["submit"]) ) {
                     </td>
                     <td>
                         <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukan Nama" autocomplete="off" pattern="[A-Za-z\s]*" required>
+=======
+            <form action="" method="post">
+                <tr>
+                    <th scope="row">+</th>
+                    <td>
+                        <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px;">
+                    </td>
+                    <td>
+                        <input type="text" name="NIP" id="NIP" class="form-control" value="NIP" required>
+                    </td>
+                    <td>
+                        <input type="text" name="nama" id="nama" class="form-control" value="Nama" required>
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                     </td>
                     <td>
                        <button type="submit" name="submit">   
@@ -111,6 +142,7 @@ if( isset($_POST["submit"]) ) {
                     </td>
                 </tr>
             </form>
+<<<<<<< HEAD
             <tr>
                 <th class="col"></th>
                 <th class="col" scope="col"></th>
@@ -138,3 +170,10 @@ if( isset($_POST["submit"]) ) {
 </div>
 
 <?php require('../../assets/parts/admin-part/footer-admin.php'); ?>
+=======
+        </tbody>
+    </table>
+</div>
+
+<?php require('../../assets/admin-part/footer-admin.php'); ?>
+>>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
