@@ -1,5 +1,4 @@
 <?php 
-<<<<<<< HEAD
 require('../../assets/sessions/session-admin.php');
 
 require('../../assets/function/functions.php'); 
@@ -17,15 +16,6 @@ require('../../assets/parts/admin-part/nav-admin.php');
 
     if( isset($_POST["submit"]) ) {
 
-=======
-require('../../assets/admin-part/header-admin.php');
-require('../../assets/admin-part/nav-admin.php');
-require('../../assets/function/functions.php'); 
-
-    $students = query_siswa("SELECT * FROM siswa");
-
-    if( isset($_POST["submit"]) ) {
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
         
         if( add_siswa($_POST) > 0) {
             echo "
@@ -52,9 +42,8 @@ require('../../assets/function/functions.php');
         <table id="daftar-siswa" class="table table-sm" style="text-align: center;">
             <thead>
                 <tr>
-<<<<<<< HEAD
                     <th class="col"></th>
-                    <th class="col" scope="col""></th>
+                    <th class="col" scope="col"></th>
                     <th class="col" scope="col"></th>
                     <th class="col" scope="col"></th>
                     <th class="col" scope="col">
@@ -70,13 +59,6 @@ require('../../assets/function/functions.php');
                     <th scope="col">NIS</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Aksi</th>
-=======
-                <th scope="col">NO</th>
-                <th scope="col">Gambar</th>
-                <th scope="col">NIS</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Aksi</th>
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                 </tr>
             </thead>
             <tbody>
@@ -84,25 +66,16 @@ require('../../assets/function/functions.php');
                 <tr>
                     <th scope="row"><?= $i++; ?></th>
                     <td>
-<<<<<<< HEAD
                         <img src="../../img/siswaimg/<?= $student["foto"] ?>" width="50" height="50" class="rounded-circle">
-=======
-                        <img src=""<?= $student["foto"]; ?>" width="50" height="50" class="rounded-circle">
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                     </td>
                     <td><?= $student["NIS"]; ?></td>
                     <td><?= $student["nama"]; ?></td>
                     <td>
-<<<<<<< HEAD
                         <a href="update-siswa.php?id=<?= $student["id"]; ?>">Ubah</a> |
-=======
-                        <a href="side/update-siswa.php?id=<?= $student["id"]; ?>">Ubah</a> |
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                         <a href="side/delete-siswa.php?id=<?= $student["id"]; ?>" onclick="return confirm('Confirm');">Hapus</a>
                     </td>
                 </tr>
                 <?php endforeach ; ?>
-<<<<<<< HEAD
                 <form action="" method="post" enctype="multipart/form-data">
                     <tr>
                         <th scope="row">+</th>
@@ -110,23 +83,10 @@ require('../../assets/function/functions.php');
                             <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px;" required>
                         </td>
                         <td>
-                            <input type="text" name="NIS" id="NIS" class="form-control" placeholder="Masukan NIS" autocomplete="off" pattern="[A-Za-z0-9]*" required>
+                            <input type="text" name="NIS" id="NIS" class="form-control" maxlength="12" placeholder="Masukan NIS" autocomplete="off" pattern="[A-Za-z0-9]*" required>
                         </td>
                         <td>
                             <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukan Nama" autocomplete="off" pattern="[A-Za-z]*" required>
-=======
-                <form action="" method="post">
-                    <tr>
-                        <th scope="row">+</th>
-                        <td>
-                            <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px;">
-                        </td>
-                        <td>
-                            <input type="text" name="NIS" id="NIS" class="form-control" value="NIS" required>
-                        </td>
-                        <td>
-                            <input type="text" name="nama" id="nama" class="form-control" value="Nama" required>
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
                         </td>
                         <td>
                         <button type="submit" name="submit">   
@@ -142,8 +102,4 @@ require('../../assets/function/functions.php');
         </table>
     </div>
 
-<<<<<<< HEAD
 <?php require('../../assets/parts/admin-part/footer-admin.php'); ?>
-=======
-<?php require('../../assets/admin-part/footer-admin.php'); ?>
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592

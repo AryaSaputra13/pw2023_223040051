@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 require('../../assets/sessions/session-user.php');
 
@@ -6,9 +5,6 @@ require('../../assets/function/functions.php');
 require('../../assets/parts/user-part/header-user.php');
 require('../../assets/parts/user-part/nav-user.php');
 ?>
-=======
-
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 
 
 <div class="container">
@@ -33,7 +29,4 @@ require('../../assets/parts/user-part/nav-user.php');
   </div>
 </div>
 
-<<<<<<< HEAD
 <?php require('../../assets/parts/user-part/footer-user.php'); ?>
-=======
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592

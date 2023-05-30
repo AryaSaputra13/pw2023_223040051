@@ -40,7 +40,7 @@ if( isset($_POST["login"])) {
       if( isset($_POST['remember']) ) {
 
 
-          setcookie('bread', $row['id'], time() + 60);
+          setcookie('bread', $row['id_users'], time() + 60);
           setcookie('cips', hash( 'sha512', $row['username']), time() + 60 );
       }
 
@@ -63,7 +63,7 @@ if( isset($_POST["login"])) {
 
             <div class="input_box">
                 <i class="uil uil-user"></i>
-              	<input type="text" name="username" placeholder="Enter Username" pattern="[A-Za-z\s]*" autocomplete="off" required>
+              	<input type="text" name="username" placeholder="Enter Username" pattern="[A-Za-z0-9\s]*" autocomplete="off" required>
             </div>
             <div class="input_box">
               	<input type="password" name="password" placeholder="Enter Password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required>

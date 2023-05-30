@@ -2,14 +2,11 @@
 // Database connect
 $cdb = mysqli_connect('localhost', 'root', '', 'sokuni') or die('Connection Failed');
 
-<<<<<<< HEAD
 
 // 
 // PENGAJAR
 // 
 
-=======
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 // show
 function query_pengajar($query) {
     global $cdb;
@@ -21,35 +18,17 @@ function query_pengajar($query) {
     return $rows;
 }
 
-<<<<<<< HEAD
-=======
-function query_siswa($query) {
-    global $cdb;
-    $result = mysqli_query($cdb, $query);
-    $rows = [];
-    while($row = mysqli_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
-    return $rows;
-}
-
-
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 // add-pengajar
 function add_pengajar($data) {
     global $cdb;
     $nip = htmlspecialchars($data["NIP"]);
     $nama = htmlspecialchars($data["nama"]);
-<<<<<<< HEAD
 
     $gambar = upload_pengajar();
 
     if ( !$gambar ) {
         return false;
     }
-=======
-    $gambar = htmlspecialchars($data["foto"]);
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 
     $add = "INSERT INTO pengajar 
                         (`NIP`, `nama`, `foto`) 
@@ -60,25 +39,6 @@ function add_pengajar($data) {
     return mysqli_affected_rows($cdb);
 }
 
-<<<<<<< HEAD
-=======
-// add-siswa
-function add_siswa($data) {
-    global $cdb;
-    $nis = htmlspecialchars($data["NIS"]);
-    $nama = htmlspecialchars($data["nama"]);
-    $gambar = htmlspecialchars($data["foto"]);
-
-    $add = "INSERT INTO siswa 
-                        (`NIS`, `nama`, `foto`) 
-                        VALUES 
-                        ('$nis', '$nama', '$gambar')
-            ";
-    mysqli_query($cdb, $add);
-    return mysqli_affected_rows($cdb);
-}
-
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 // delete-pengajar
 function delete_pengajar($id) {
     global $cdb;
@@ -87,24 +47,12 @@ function delete_pengajar($id) {
     return mysqli_affected_rows($cdb);
 }
 
-<<<<<<< HEAD
-=======
-// delete-siswa
-function delete_siswa($siswa) {
-    global $cdb;
-    mysqli_query($cdb, "DELETE FROM siswa WHERE id=$siswa");
-
-    return mysqli_affected_rows($cdb);
-}
-
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 // Update-pengajar
 function update_pengajar($update) {
     global $cdb;
     $id = $update["id"];
     $nip = htmlspecialchars($update["NIP"]);
     $nama = htmlspecialchars($update["nama"]);
-<<<<<<< HEAD
     $oldfoto = $update["oldfoto"];
 
 
@@ -114,9 +62,6 @@ function update_pengajar($update) {
         $foto = upload_pengajar();
     }
     
-=======
-    $foto = htmlspecialchars($update["foto"]);
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 
     $update = "UPDATE pengajar SET 
                 NIP = '$nip',
@@ -129,7 +74,6 @@ function update_pengajar($update) {
     return mysqli_affected_rows($cdb);
 }
 
-<<<<<<< HEAD
 // search-pengajar
 function search_pengajar($keyword) {
     $query = " SELECT * FROM pengajar
@@ -257,15 +201,12 @@ function delete_siswa($siswa) {
 }
 
 
-=======
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 // update-siswa
 function update_siswa($update) {
     global $cdb;
     $id = $update["id"];
     $nis = htmlspecialchars($update["NIS"]);
     $nama = htmlspecialchars($update["nama"]);
-<<<<<<< HEAD
     $oldfoto = $update["oldfoto"];
 
 
@@ -275,9 +216,6 @@ function update_siswa($update) {
     } else {
         $foto = upload_siswa();
     }
-=======
-    $foto = htmlspecialchars($update["foto"]);
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 
     $update = "UPDATE siswa SET 
                 NIS = '$nis',
@@ -291,7 +229,6 @@ function update_siswa($update) {
 }
 
 
-<<<<<<< HEAD
 // search-siswa
 function search_siswa($keyword) {
     $query = " SELECT * FROM siswa
@@ -368,7 +305,5 @@ function registration_siswa($signup) {
 // 
 // END-SISWA
 // 
-=======
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 
 ?>

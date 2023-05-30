@@ -5,7 +5,7 @@ require('../../assets/function/functions.php');
 require('../../assets/parts/admin-part/header-admin.php');
 require('../../assets/parts/admin-part/nav-admin.php');
 
-$id = $_GET["id"];
+$id = htmlspecialchars($_GET["id"]);
 
 $tchr = query_pengajar("SELECT * FROM pengajar WHERE id = $id")[0];
 
@@ -37,7 +37,7 @@ if( isset($_POST["submit"]) ) {
     <table id="daftar-pengajar" class="table table-sm" style="text-align: center;">
         <thead>
             <tr>
-                <th class="col" scope="col"">Gambar</th>
+                <th class="col" scope="col">Gambar</th>
                 <th class="col" scope="col">NIP</th>
                 <th class="col" scope="col">Nama</th>
                 <th class="col" scope="col-">Aksi</th>
@@ -47,16 +47,16 @@ if( isset($_POST["submit"]) ) {
             <tr>
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $tchr["id"]; ?>">
-                    <input type="hidden" name="oldfoto" value="<?= $tchr["foto"]; ?>">
+                    <input type="hidden" name="oldfoto" required value="<?= $tchr["foto"]; ?>">
                     <td>
                         <img src="../../img/pengajarimg/<?= $tchr["foto"]; ?>" width="50" height="50" class="rounded-circle">
                         <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px; margin: 10px 0 0 0;">
                     </td>
                     <td>
-                        <input type="text" name="NIP" id="NIP" class="form-control" value="<?= $tchr["NIP"]; ?>" autocomplete="off" pattern="[0-9]*" required>    
+                        <input type="text" name="NIP" id="NIP" class="form-control" required value="<?= $tchr["NIP"]; ?>" autocomplete="off" pattern="[0-9]*" required readonly>    
                     </td>
                     <td>
-                        <input type="text" name="nama" id="nama" class="form-control" value="<?= $tchr["nama"]; ?>" autocomplete="off" pattern="[A-Za-z\s]*" required>
+                        <input type="text" name="nama" id="nama" class="form-control" required value="<?= $tchr["nama"]; ?>" autocomplete="off" pattern="[A-Za-z\s]*" required>
                     </td>
                     <td>
                         <button type="submit" name="submit" onclick="return confirm('Confirm');">   

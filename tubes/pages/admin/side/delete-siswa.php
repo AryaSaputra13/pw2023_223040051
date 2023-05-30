@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 session_start();
 
 if ( !isset($_SESSION["login"]) ) {
@@ -7,12 +6,10 @@ if ( !isset($_SESSION["login"]) ) {
       exit;
 }
 
-=======
->>>>>>> 27f1f5ecdc82d207cf7540810f737f9cd9742592
 require('../../../assets/function/functions.php');
 
 if (isset($_GET["id"])) {
-    $id = $_GET["id"];
+    $id = htmlspecialchars($_GET["id"]);
 
     if (delete_siswa($id) > 0) {
         echo "

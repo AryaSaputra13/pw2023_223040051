@@ -5,7 +5,7 @@ require('../../assets/function/functions.php');
 require('../../assets/parts/admin-part/header-admin.php');
 require('../../assets/parts/admin-part/nav-admin.php');
 
-$id = $_GET["id"];
+$id = htmlspecialchars($_GET["id"]);
 
 $stdt = query_siswa("SELECT * FROM siswa WHERE id = $id")[0];
 
@@ -53,7 +53,7 @@ if( isset($_POST["submit"]) ) {
                         <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px; margin: 10px 0 0 0;">
                     </td>
                     <td>
-                        <input type="text" name="NIS" id="NIS" class="form-control" value="<?= $stdt["NIS"]; ?>" autocomplete="off" pattern="[A-Za-z0-9\s]*" required>    
+                        <input type="text" name="NIS" id="NIS" class="form-control" value="<?= $stdt["NIS"]; ?>" autocomplete="off" pattern="[A-Za-z0-9\s]*" required readonly>    
                     </td>
                     <td>
                         <input type="text" name="nama" id="nama" class="form-control" value="<?= $stdt["nama"]; ?>" autocomplete="off" pattern="[A-Za-z\s]*" required>

@@ -2,31 +2,72 @@
 require('../../assets/sessions/session-pengajar.php');
 
 require('../../assets/function/functions.php');
-require('../../assets/parts/pengajar-part/header-pengajr.php');
+require('../../assets/parts/pengajar-part/header-pengajar.php');
 require('../../assets/parts/pengajar-part/nav-pengajar.php');
-
 ?>
 
+<style>
+  .wrapper {
+    display: flex;
+  }
 
-<div class="container">
-  <div class="profile">
-    <!-- Profile -->
-    <div class="profile-header">
-        <h2>Profile</h2>
-    </div>
-    <p>Nama: Kanata</p>
-    <p>Umur: 21 tahun</p>
-    <p>Alamat: Jl. Contoh No. 123</p>
+  .sidebar {
+    height: 100vh;
+    width: 200px;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border: 1px solid black;
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .content h1 {
+    text-align: center;
+  }
+
+  .card{
+    border: 1px solid black;
+  }
+
+  
+
+</style>
+
+<div class="wrapper">
+  <div class="sidebar">
+    <h2>Profile</h2>
+    <img src="" alt="">
+    <h5>nrp</h5>
+    <h5>Nama</h5>
+    <h5>email</h5>
+    <p></p>
   </div>
   <div class="content">
-    <!-- Konten -->
-    <div class="content-header">
-        <h2>Konten</h2>
-    </div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis dapibus, 
-        mollis neque eget, iaculis elit. Donec tristique facilisis mauris, sit amet cursus neque congue in. 
-        Duis faucibus, nulla eu ullamcorper tincidunt, lectus sapien commodo mi, 
-        vitae congue est dolor eu turpis.</p>
+    <h1>dasboard</h1>
+    <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
 
+<div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<?php require("../../assets/part/pengajar-part/pengajar.php"); ?>
