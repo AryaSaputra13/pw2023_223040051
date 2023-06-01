@@ -18,8 +18,8 @@ $pengajar = [
 ]
 ?>
 
-<?php require('assets/global-part/global-header.php'); ?>
-<?php require('assets/global-part/global-nav.php'); ?>
+<?php require('assets/parts/global-part/global-header.php'); ?>
+<?php require('assets/parts/global-part/global-nav.php'); ?>
 
 
 
@@ -88,4 +88,4 @@ $pengajar = [
     </div>
 </div>
 
-<?php require('assets/global-part/global-footer.php') ?>
+<?php require('assets/parts/global-part/global-footer.php') ?>
