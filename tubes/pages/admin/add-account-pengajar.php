@@ -5,66 +5,189 @@ require("../../assets/function/functions.php");
 require('../../assets/parts/admin-part/header-admin.php');
 require('../../assets/parts/admin-part/nav-admin.php');
 
+if( isset($_POST["add"]) ) {
+
+    
+    if( add_pengajar($_POST) > 0) {
+        echo "
+            <script>
+                alert('Succes to Add!');
+                document.location.href = 'daftar-pengajar.php';
+            </script>
+        ";
+    } else {
+       echo "
+            <script>
+                alert('Failed to Add!');
+                document.location.href = 'daftar-pengajar.php';
+            </script>
+       ";
+    }
+    
+}
 
 if( isset($_POST["signup"]) ) {
     
-    if (registration_pengajar($_POST) > 0) {
+    if( registration_siswa($_POST) > 0) {
         echo "
-           <script>
-              alert('Signup Success!');
-           </script>
+        <script>
+          alert('Success to Sign-up');
+          document.location.href = 'login.php';
+        </script>
         ";
-     } else {
-        echo "
-           <script>
-              alert('Signup Failed: " . mysqli_error($cdb) . "');
-           </script>
-        ";
-     }
+    } else {
+      echo mysqli_error($cdb);
+    }
+    
+  }
   
-}
+  $name = 'Registration';
+  ?>
+  <style>
+    body{
+      background: url('../img/bgimg/Login_1080p.jpg') no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  
+    .form{
+      border: 1px solid rgba(255,255,255,0.5  ); 
+      border-radius: 20px;
+      padding: 1rem;
+      backdrop-filter: blur(15px);
+    }
+  
+    .form h2{
+      font-size: 22px;
+      color: white;
+      text-align: center;
+    }
+  
+    input{
+      background: transparent;
+    }
+  
+    .foto {
+      margin-top: 1rem;
+      background: transparent;
+    }
+    #form-option a{
+        margin-left: 10px;
+    }
+    .login_form{
+        border: 1px solid black; 
+        border-radius: 5%;
+        padding: 1rem;
+    }
 
-?>
+    .active .login_form {
+        padding: 25rem;
+        display: none;
+    }
 
-<h3 style="text-align: center; margin: 2rem 0 4rem 0 ;">Tambah Akun Pengajar</h3>
-<div class="container mt-3">
-    <form action="" method="post">
-        <table id="add-account-pengajar" class="table table-sm" style="text-align: center;">
-            <thead>
-                <tr>
-                    <th class="col" scope="col"></th>
-                    <th class="col" scope="col">Username</th>
-                    <th class="col" scope="col">Password</th>
-                    <th class="col" scope="col">Confirmed Password</th>
-                    <th class="col" scope="col-"></th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                    <tr>
-                        <th scope="row">+</th>
-                        <td>
-                            <i class="uil uil-user"></i>
-                            <input type="text" name="username" placeholder="Enter Username" pattern="[A-Za-z0-9\s]*" autocomplete="off" required>
-                        </td>
-                        <td>
-                            <input type="password" name="password" placeholder="Enter password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required>
-                        </td>
-                        <td>
-                            <input type="password" name="password2" placeholder="Confirmed password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required>
-                        </td>
-                        <td>
-                        <button type="submit" name="signup">   
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-            </tbody>
-        </table>
-    </form>
-</div>
+    .form{
+        margin-left: 27.5rem;
+        margin-top: 4rem;
+    }
+
+    .form h2 {
+    font-size: 22px;
+    color: black;
+    text-align: center;
+    }
+    .input_box {
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+    height: 40px;
+    }
+    .input_box input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0 30px;
+    color: #333;
+    transition: all 0.2s ease;
+    border-bottom: 1.5px solid #aaaaaa;
+    }
+    .input_box input:focus {
+    border-color: #7d2ae8;
+    }
+    .input_box i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        color: #707070;
+    }
+    .input_box i.email,
+    .input_box i.password {
+    left: 0;
+    }
+    .input_box input:focus ~ i.email,
+    .input_box input:focus ~ i.password {
+        color: #7d2ae8;
+    }
+
+    .form_container a {
+        color: #7d2ae8;
+        font-size: 12px;
+    }
+    .form_container a:hover {
+        text-decoration: underline;
+    }
+
+    .submit {
+        border: none;
+        color: white;
+        width: 300px; 
+        padding: 1rem;
+        background: #7d2ae8;
+        margin-top: 30px;
+        padding: 10px 0;
+        border-radius: 10px;
+    }
+
+    .submit:hover{
+        background-color: blue;
+	    transition-duration: 1s;
+    }
+
+  </style>
+  
+      <div class="form regis_form" style="width: 400px; border: 1px solid black;">
+          <form action="" method="post" enctype="multipart/form-data">
+              <h2>Tambah Pengajar</h2>
+                    <div class="input_box">
+                  <i class="uil uil-user"></i>
+                    <input type="text" name="username" placeholder="Enter your Username" pattern="[A-Za-z0-9\s]*" autocomplete="off" required />
+              </div>
+              <div class="input_box">
+                    <input type="password" name="password" placeholder="Enter your password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+                    <i class="uil uil-lock password"></i>
+              </div>
+              <div class="input_box">
+                    <input type="password" name="password2" placeholder="Confirm password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+                    <i class="uil uil-lock password"></i>
+              </div>
+              <div class="foto">
+                <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px; background-color: transparent;" autocomplete="off" required>
+              </div>
+              <div class="input_box">
+                  <i class="uil uil-user"></i>
+                    <input type="text" name="nama" placeholder="Nama Lengkap" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+              </div>
+              <div class="input_box">
+                  <i class="uil uil-user"></i>
+                    <input type="text" name="nip" placeholder="Masukkan nip" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+              </div>
+              <div class="input_box">
+                    <input type="email" name="email" placeholder="Email" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required />
+              </div>
+              <button class="submit" name="add">Tambah</button>
+            </form>
+    </div>
 
 
 

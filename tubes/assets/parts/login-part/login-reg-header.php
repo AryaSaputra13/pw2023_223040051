@@ -7,12 +7,11 @@
 	
 	<style>
     .login_form{
-      border: 1px solid black; 
-      border-radius: 5%;
+      border-radius: 20px;
       padding: 1rem;
     }
     .active .login_form {
-    padding: 25rem;
+      padding: 25rem;
       display: none;
     }
 

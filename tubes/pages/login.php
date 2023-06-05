@@ -8,7 +8,7 @@ if(isset($_COOKIE['bread']) && isset($_COOKIE['cips'])) {
   $id = isset($_COOKIE['bread']) ? $_COOKIE['bread'] : null;
   $key = isset($_COOKIE['cips']) ? $_COOKIE['cips'] : null;  
 
-  $result = mysqli_query($cdb, "SELECT username FROM account_pengajar 
+  $result = mysqli_query($cdb, "SELECT username FROM siswa 
                                 WHERE id = $id");
   $row = mysqli_fetch_assoc($result);                             
   
@@ -28,7 +28,7 @@ if( isset($_POST["login"])) {
   $username = $_POST["username"];
   $password = $_POST["password"];
 
-  $result = mysqli_query($cdb, "SELECT * FROM account_user 
+  $result = mysqli_query($cdb, "SELECT * FROM siswa
                                 WHERE username = '$username'");
 
   if( mysqli_num_rows($result) === 1 ) {
@@ -39,11 +39,11 @@ if( isset($_POST["login"])) {
 
       if( isset($_POST['remember']) ) {
 
-
-          setcookie('bread', $row['id_users'], time() + 60);
+          setcookie('bread', $row['id'], time() + 60);
           setcookie('cips', hash( 'sha512', $row['username']), time() + 60 );
       }
 
+      $_SESSION['siswa'] = $row;
       header("Location: user/user-view.php");
       exit;
     }
@@ -52,6 +52,31 @@ if( isset($_POST["login"])) {
   $error = true;
 }
 ?>
+
+<style>
+  body{
+    background: url('../img/bgimg/Login_1080p.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .form{
+    border: 1px solid rgba(255,255,255,0.5  ); 
+    border-radius: 20px;
+    padding: 1rem;
+    backdrop-filter: blur(15px);
+  }
+
+  .form h2{
+    font-size: 22px;
+    color: #0b0217;
+    text-align: center;
+  }
+
+  input{
+    background: transparent;
+  }
+</style>
 
 	<div class="form login_form">
         <form action="" method="post">
@@ -68,7 +93,6 @@ if( isset($_POST["login"])) {
             <div class="input_box">
               	<input type="password" name="password" placeholder="Enter Password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required>
               	<i class="uil uil-lock password"></i>
-              	<i class="uil uil-eye-slash pw_hide"></i>
             </div>
 
             <div class="option_field">
@@ -85,6 +109,9 @@ if( isset($_POST["login"])) {
             <button class="submit" name="login">Login</button>
             <div class="login_signup">Belum Punya Akun? <a href="registration.php" id="signup">Sig-nup</a></div>
         </form>
+          <a href="../index.php" style="text-align: center;">&lt;Kembali</a>
   </div>
+
+  
 
 <?php require("../assets/parts/login-part/login-reg-footer.php"); ?>

@@ -21,7 +21,16 @@ $pengajar = [
 <?php require('assets/parts/global-part/global-header.php'); ?>
 <?php require('assets/parts/global-part/global-nav.php'); ?>
 
+<style>
+    .selengkapnya{
+    text-align: center;
+    }
 
+    .selengkapnya button a{
+        color: white;
+        padding: 50px;
+    }
+</style>
 
 
 <!-- About -->
@@ -66,6 +75,9 @@ $pengajar = [
                 </div>
                 <?php endforeach ?>
             </div>
+        </div>
+        <div class="selengkapnya">
+            <button type="button" class="btn btn-primary"><a href="index.detail.php">Selengkapnya</a></button>
         </div>
     </div>
 </div>

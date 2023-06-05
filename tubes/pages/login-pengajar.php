@@ -13,7 +13,7 @@ if( isset($_POST["login"])) {
   $username = $_POST["username"];
   $password = $_POST["password"];
 
-  $result = mysqli_query($cdb, "SELECT * FROM account_pengajar 
+  $result = mysqli_query($cdb, "SELECT * FROM pengajar 
                                 WHERE username = '$username'");
 
   if( mysqli_num_rows($result) === 1 ) {
@@ -22,6 +22,7 @@ if( isset($_POST["login"])) {
     if( password_verify($password, $row["password"]) ) {
 		$_SESSION["login"] = true;
 
+      $_SESSION['pengajar'] = $row;
       header("Location: pengajar/pengajar-view.php");
       exit;
     }
@@ -30,6 +31,31 @@ if( isset($_POST["login"])) {
   $error = true;
 }
 ?>
+
+<style>
+ body{
+    background: url('../img/bgimg/Login_1080p.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .form{
+    border: 1px solid rgba(255,255,255,0.5  ); 
+    border-radius: 20px;
+    padding: 1rem;
+    backdrop-filter: blur(15px);
+  }
+
+  .form h2{
+    font-size: 22px;
+    color: #0b0217;
+    text-align: center;
+  }
+
+  input{
+    background: transparent;
+  }
+</style>
 
 <div class="form login_form">
     <form action="" method="post">
@@ -41,7 +67,7 @@ if( isset($_POST["login"])) {
 
         <div class="input_box">
             <i class="uil uil-user"></i>
-            <input type="text" name="username" placeholder="Enter Username" pattern="[A-Za-z\s]*" autocomplete="off" required>
+            <input type="text" name="username" placeholder="Enter Username" pattern="[A-Za-z0-9\s]*" autocomplete="off" required>
         </div>
         <div class="input_box">
           	<input type="password" name="password" placeholder="Enter Password" pattern="[A-Za-z0-9*$@!_-\s]*" autocomplete="off" required>

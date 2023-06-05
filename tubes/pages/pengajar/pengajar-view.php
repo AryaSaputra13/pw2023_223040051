@@ -4,70 +4,43 @@ require('../../assets/sessions/session-pengajar.php');
 require('../../assets/function/functions.php');
 require('../../assets/parts/pengajar-part/header-pengajar.php');
 require('../../assets/parts/pengajar-part/nav-pengajar.php');
+
+  // var_dump($_SESSION['pengajar']['id']); die();
+
+$sql = "SELECT pengajar.id, pengajar.nama_pengajar, pengajar.nip, pengajar.email, pengajar.foto
+        FROM pengajar
+        WHERE pengajar.id = {$_SESSION['pengajar']['id']}";
+
+  $result = mysqli_query($cdb, $sql);
+  $pengajar = mysqli_fetch_assoc($result);
 ?>
 
 <style>
-  .wrapper {
-    display: flex;
+  .container h4 {
+    margin-top: 0.5rem;
   }
 
-  .sidebar {
-    height: 100vh;
-    width: 200px;
-    background-color: #f1f1f1;
-    padding: 20px;
-    border: 1px solid black;
+  .container .card-title{
+    margin: 1rem 0 1rem 0;
   }
-
-  .content {
-    flex: 1;
-    padding: 20px;
-  }
-
-  .content h1 {
-    text-align: center;
-  }
-
-  .card{
-    border: 1px solid black;
-  }
-
-  
-
 </style>
 
-<div class="wrapper">
-  <div class="sidebar">
-    <h2>Profile</h2>
-    <img src="" alt="">
-    <h5>nrp</h5>
-    <h5>Nama</h5>
-    <h5>email</h5>
-    <p></p>
-  </div>
-  <div class="content">
-    <h1>dasboard</h1>
-    <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
 
-<div class="card">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+<div class="container">
+  <div class="card" style="align-items: center; text-align: center; margin-top: 2.5rem;">
+    <div class="card-body"  style="width: 480px; height: 480px;">
+      <h4 class="card-title">Profile</h4>
+      <img src="../../img/Pengajarimg/<?= $pengajar['foto'] ?>" style="height: 250px; width: 250px; border: 1px solid black; border-radius: 50%;">
+      <h4 class="card-text"><?= $pengajar['nama_pengajar']; ?></h4>
+      <h4 class="card-text"><?= $pengajar['nip']; ?></h4>
+      <h4 class="card-text"><?= $pengajar['email']; ?></h4>
+      <a href="ubah-profile.php?id=<?= $pengajar['id'] ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+        </svg>
+      </a>
     </div>
   </div>
 </div>
 
-<?php require("../../assets/part/pengajar-part/pengajar.php"); ?>
+<?php require('../../assets/parts/pengajar-part/footer-pengajar.php'); ?>

@@ -40,6 +40,7 @@ if( isset($_POST["submit"]) ) {
                 <th class="col" scope="col">Gambar</th>
                 <th class="col" scope="col">NIP</th>
                 <th class="col" scope="col">Nama</th>
+                <th class="col" scope="col">Email</th>
                 <th class="col" scope="col-">Aksi</th>
             </tr>
         </thead>
@@ -53,10 +54,13 @@ if( isset($_POST["submit"]) ) {
                         <input type="file" name="foto" id="foto" class="form-control" style="max-width: 300px; margin: 10px 0 0 0;">
                     </td>
                     <td>
-                        <input type="text" name="NIP" id="NIP" class="form-control" required value="<?= $tchr["NIP"]; ?>" autocomplete="off" pattern="[0-9]*" required readonly>    
+                        <input type="text" name="nip" id="nip" class="form-control" required value="<?= $tchr["nip"]; ?>" autocomplete="off" pattern="[0-9]*" required readonly>    
                     </td>
                     <td>
-                        <input type="text" name="nama" id="nama" class="form-control" required value="<?= $tchr["nama"]; ?>" autocomplete="off" pattern="[A-Za-z\s]*" required>
+                        <input type="text" name="nama" id="nama" class="form-control" required value="<?= $tchr["nama_pengajar"]; ?>" autocomplete="off" pattern="[A-Za-z0-9\s]*" required>
+                    </td>
+                    <td>
+                        <input type="email" name="email" id="email" class="form-control" required value="<?= $tchr["email"]; ?>" autocomplete="off" pattern="[A-Za-z0-9@.!*\s]*" required>
                     </td>
                     <td>
                         <button type="submit" name="submit" onclick="return confirm('Confirm');">   

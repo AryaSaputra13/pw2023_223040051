@@ -1,4 +1,6 @@
 <?php 
+
+define('BASE_URL', '/pw2023_223040051/tubes');
 // Database connect
 $cdb = mysqli_connect('localhost', 'root', '', 'sokuni') or die('Connection Failed');
 
@@ -18,23 +20,44 @@ function query_pengajar($query) {
     return $rows;
 }
 
+function jumlah_pengajar($query) {
+    global $cdb;
+    $result = mysqli_query($cdb, $query);
+    $row = mysqli_fetch_assoc($result);
+    return $row;
+}
+
+
 // add-pengajar
 function add_pengajar($data) {
     global $cdb;
-    $nip = htmlspecialchars($data["NIP"]);
+
+    $username = htmlspecialchars(strtolower(stripcslashes($data["username"])));
+    $password = htmlspecialchars(mysqli_real_escape_string($cdb, $data["password"]));
+    $password2 = htmlspecialchars(mysqli_real_escape_string($cdb, $data["password2"]));
+    $nip = htmlspecialchars($data["nip"]);
     $nama = htmlspecialchars($data["nama"]);
+    $email = htmlspecialchars($data["email"]);
 
     $gambar = upload_pengajar();
+
+    if( $password !== $password2 ) {
+        echo "<script>
+                alert('Password Tidak sama');
+             </script>";
+        return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
     if ( !$gambar ) {
         return false;
     }
 
-    $add = "INSERT INTO pengajar 
-                        (`NIP`, `nama`, `foto`) 
+    $add = "INSERT INTO `pengajar` 
+                        (`username`, `password`, `nama_pengajar`, `email`, `foto`, `nip`) 
                         VALUES 
-                        ('$nip', '$nama', '$gambar')
-            ";
+                        ('$username', '$password', '$nama', '$email', '$gambar', '$nip')";
     mysqli_query($cdb, $add);
     return mysqli_affected_rows($cdb);
 }
@@ -42,7 +65,22 @@ function add_pengajar($data) {
 // delete-pengajar
 function delete_pengajar($id) {
     global $cdb;
+    mysqli_query($cdb, "DELETE FROM pengajar 
+                        WHERE id = $id");
+
+    return mysqli_affected_rows($cdb);
+}
+
+function delete_jadwal($id) {
+    global $cdb;
     mysqli_query($cdb, "DELETE FROM pengajar WHERE id = $id");
+
+    return mysqli_affected_rows($cdb);
+}
+
+function delete_fk($id) {
+    global $cdb;
+    mysqli_query($cdb, "DELETE FROM pengajar_pelajaran where id_pengajar = $id");
 
     return mysqli_affected_rows($cdb);
 }
@@ -51,8 +89,9 @@ function delete_pengajar($id) {
 function update_pengajar($update) {
     global $cdb;
     $id = $update["id"];
-    $nip = htmlspecialchars($update["NIP"]);
+    $nip = htmlspecialchars($update["nip"]);
     $nama = htmlspecialchars($update["nama"]);
+    $email = htmlspecialchars($update["email"]);
     $oldfoto = $update["oldfoto"];
 
 
@@ -64,9 +103,10 @@ function update_pengajar($update) {
     
 
     $update = "UPDATE pengajar SET 
-                NIP = '$nip',
-                nama = '$nama',
-                foto = '$foto'
+                nama_pengajar = '$nama',
+                foto = '$foto',
+                email = '$email',
+                nip = '$nip'
             WHERE id = $id
             ";
     mysqli_query($cdb, $update);
@@ -78,8 +118,9 @@ function update_pengajar($update) {
 function search_pengajar($keyword) {
     $query = " SELECT * FROM pengajar
                 WHERE 
-                nama LIKE '%$keyword%' OR
-                NIP LIKE '%$keyword%'";
+                nama_pengajar LIKE '%$keyword%' OR
+                nip LIKE '%$keyword%' OR
+                email LIKE '%$keyword%'";
 
     return query_pengajar($query);
 }
@@ -120,33 +161,122 @@ function upload_pengajar() {
 
 }
 
-//registration-pengajar
-function registration_pengajar($signup) {
+// Tambah-ebook
+function add_ebook($data) {
     global $cdb;
+    $doc = upload_pengajar_ebook();
 
-    $username = strtolower(stripcslashes($signup["username"]));
-    $password = mysqli_real_escape_string($cdb, $signup["password"]);
-    $password2 = mysqli_real_escape_string($cdb, $signup["password2"]);
-
-    if( $password !== $password2 ) {
-        echo "<script>
-                alert('Password Tidak sama');
-             </script>";
+    if( !$doc ) {
         return false;
     }
 
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $add = "INSERT INTO ebook 
+                        (`ebook`) 
+                        VALUES 
+                        ('$doc')";
 
-    $sign_up = "INSERT INTO account_pengajar
-                                (`username`, `password`) 
-                                VALUES 
-                                ('$username', '$password')";
+    mysqli_query($cdb, $add);
+    return mysqli_affected_rows($cdb);
+}
+// upload-ebook
+function upload_pengajar_ebook() {
+    $filename = $_FILES['ebook']['name'];
+    $size = $_FILES['ebook']['type'];
+    $error = $_FILES['ebook']['error'];
+    $tmpname = $_FILES['ebook']['tmp_name'];
 
-    mysqli_query($cdb, $sign_up);
+    $EkstensionValidDoc = ['pdf'];
+    $EkstensionDoc = explode('.', $filename);
+    $EkstensionDoc = strtolower(end($EkstensionDoc));
+
+    if (!in_array($EkstensionDoc, $EkstensionValidDoc)) {
+        echo "<script>
+                alert('Dokumen yang anda upload tidak valid!');
+            </script>";
+        return false;
+    }
+
+    move_uploaded_file($tmpname, '../../ebook/' . $filename);
+
+    return $filename;
+}
+
+// kategori
+function kategori($id) {
+    global $cdb;
+    // var_dump($id); die();
+    $ide = $id["ide"];
+    $idk = $id["kategori"];
+    
+    $result = "INSERT INTO ebook_kategori
+                            (id_ebook, id_kategori)
+                            VALUES
+                            ($ide, $idk)";
+
+    mysqli_query($cdb, $result);
 
     return mysqli_affected_rows($cdb);
-
 }
+
+function pelajaran($id) {
+    global $cdb;
+    // var_dump($id); die();
+    $idp = $id["idp"];
+    $idl = $id["pelajaran"];
+    
+    $result = "INSERT INTO pengajar_pelajaran
+                            (id_pengajar, id_pelajaran)
+                            VALUES
+                            ($idp, $idl)";
+
+    mysqli_query($cdb, $result);
+
+    return mysqli_affected_rows($cdb);
+}
+
+// delete-ebook
+function delete_ebook($id) {
+    global $cdb;
+    mysqli_query($cdb, "DELETE FROM ebook WHERE id = $id");
+
+    return mysqli_affected_rows($cdb);
+}
+
+function delete_fkebook($id) {
+    global $cdb;
+    mysqli_query($cdb, "DELETE FROM ebook_kategori where id_ebook = $id");
+
+    return mysqli_affected_rows($cdb);
+}
+
+// search-ebook
+function search_ebook($keyword) {
+    $query = "SELECT * FROM ebook
+                WHERE 
+                ebook LIKE '%{$keyword}%' OR
+                kategori_buku LIKE '%{$keyword}%'";
+
+    return query_pengajar($query);
+}
+
+
+// add-jadwal
+function add_jadwal($time) {
+    global $cdb;
+
+    $date = htmlspecialchars($time["date"]);
+    $jmasuk = htmlspecialchars($time["jmasuk"]);
+    $jkeluar = htmlspecialchars($time["jkeluar"]);
+
+    $result = "INSERT INTO `jadwal` 
+                            (`tanggal_masuk`, `jam_masuk`, `jam_keluar`)
+                            VALUES 
+                            ('$date', '$jmasuk', '$jkeluar');";
+    mysqli_query($cdb, $result);
+
+    return mysqli_affected_rows($cdb);
+}
+
 
 
 // 
@@ -169,24 +299,37 @@ function query_siswa($query) {
     return $rows;
 }
 
+function jumlah_siswa($query) {
+    global $cdb;
+    $result = mysqli_query($cdb, $query);
+    $row = mysqli_fetch_assoc($result);
+    return $row;
+}
+
+
 
 // add-siswa
-function add_siswa($data) {
+function registration_siswa($data) {
     global $cdb;
-    $nis = htmlspecialchars($data["NIS"]);
+    $username = htmlspecialchars($data["username"]);
+    $password = mysqli_real_escape_string($cdb, $data["password"]);
+    $password2 = mysqli_real_escape_string($cdb, $data["password2"]);
     $nama = htmlspecialchars($data["nama"]);
-    
-    $gambar = upload_siswa();
+    $email = htmlspecialchars($data["email"]);
 
-    if (!$gambar) {
+
+    if( $password !== $password2 ) {
+        echo "<script>
+                alert('Password Tidak sama');
+             </script>";
         return false;
     }
+    $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $add = "INSERT INTO siswa 
-                        (`NIS`, `nama`, `foto`) 
-                        VALUES 
-                        ('$nis', '$nama', '$gambar')
-            ";
+    $add = "INSERT INTO `siswa` 
+                        (`username`, `password`, `nama_user`, `email`, `foto`) 
+                         VALUES 
+                        ('$username', '$password', '$nama', '$email', null)";
     mysqli_query($cdb, $add);
     return mysqli_affected_rows($cdb);
 }
@@ -201,50 +344,52 @@ function delete_siswa($siswa) {
 }
 
 
-// update-siswa
-function update_siswa($update) {
-    global $cdb;
-    $id = $update["id"];
-    $nis = htmlspecialchars($update["NIS"]);
-    $nama = htmlspecialchars($update["nama"]);
-    $oldfoto = $update["oldfoto"];
-
-
-    if( $_FILES['foto']['error'] === 4) {
-        $foto = $oldfoto;
-
-    } else {
-        $foto = upload_siswa();
-    }
-
-    $update = "UPDATE siswa SET 
-                NIS = '$nis',
-                nama = '$nama',
-                foto = '$foto'
-            WHERE id = $id
-            ";
-    mysqli_query($cdb, $update);
-
-    return mysqli_affected_rows($cdb);
-}
-
-
 // search-siswa
 function search_siswa($keyword) {
     $query = " SELECT * FROM siswa
                 WHERE 
-                nama LIKE '%$keyword%' OR
-                NIS LIKE '%$keyword%'";
+                nama_user LIKE '%$keyword%' OR
+                email LIKE '%$keyword%'";
 
     return query_siswa($query);
 }
 
+function update_siswa($update) {
+    
+    global $cdb;
+    $id = $update["id"];
+    $nama = htmlspecialchars($update["nama"]);
+    $username = htmlspecialchars($update["username"]);
+    $email = htmlspecialchars($update["email"]);
+    $oldfoto = $update["oldfoto"];
+
+    
+    if ($_FILES['gambar']['error'] === 4) {
+        $foto = $oldfoto;
+    } else {
+        $foto = upload_siswa();
+    }
+    
+
+    $update = "UPDATE siswa SET 
+                username = '$username',
+                nama_user = '$nama',
+                email = '$email',
+                foto = '$foto'
+               WHERE id = $id
+            ";
+    mysqli_query($cdb, $update);
+
+    return 1;
+    return mysqli_affected_rows($cdb);
+}
+
 // upload-siswa
 function upload_siswa() {
-    $filename = $_FILES['foto']['name'];
-    $size = $_FILES['foto']['size'];
-    $error = $_FILES['foto']['error'];
-    $tmpname = $_FILES['foto']['tmp_name'];
+    $filename = $_FILES['gambar']['name'];
+    $size = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpname = $_FILES['gambar']['tmp_name'];
 
 
     $EkstensionValidImage = ['jpg', 'jpeg', 'png'];
@@ -275,32 +420,6 @@ function upload_siswa() {
 
 }
 
-function registration_siswa($signup) {
-    global $cdb;
-
-    $username = strtolower(stripcslashes($signup["username"]));
-    $password = mysqli_real_escape_string($cdb, $signup["password"]);
-    $password2 = mysqli_real_escape_string($cdb, $signup["password2"]);
-
-    if( $password !== $password2 ) {
-        echo "<script>
-                alert('Password Tidak sama');
-             </script>";
-        return false;
-    }
-
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-    $sign_up = "INSERT INTO account_user
-                                (`username`, `password`) 
-                                VALUES 
-                                ('$username', '$password')";
-
-    mysqli_query($cdb, $sign_up);
-
-    return mysqli_affected_rows($cdb);
-
-}
 
 // 
 // END-SISWA
