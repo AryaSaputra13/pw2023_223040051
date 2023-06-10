@@ -1,4 +1,14 @@
 <?php
+session_start();
+if( isset($_SESSION['admin']) ) {
+    header("Location: pages/admin/admin-view.php");
+    exit;
+}
+if( isset($_SESSION['pengajar']) ) {
+    header("Location: pages/pengajar/pengajar-view.php");
+    exit;
+}
+
 $pengajar = [
     [
         "nama"      => "Dadi",
@@ -16,6 +26,9 @@ $pengajar = [
         "profile"   => "pengajar3.jpg"
     ]
 ]
+
+
+
 ?>
 
 <?php require('assets/parts/global-part/global-header.php'); ?>

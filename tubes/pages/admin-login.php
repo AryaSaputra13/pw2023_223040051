@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if ( isset($_SESSION["login"]) ) {
+if ( isset($_SESSION["admin"]) ) {
 	header("Location: admin/admin-view.php");
 }
 
@@ -22,8 +22,9 @@ if( isset($_POST["login"])) {
 		
 		$_SESSION["login"] = true;
 	
-      	header("Location: admin/admin-view.php");
-      	exit;
+		$_SESSION['admin'] = $row;
+		header("Location: admin/admin-view.php");
+		exit;
     }
   }
 

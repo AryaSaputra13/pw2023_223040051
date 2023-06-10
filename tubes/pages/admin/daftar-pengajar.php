@@ -5,26 +5,11 @@ require('../../assets/function/functions.php');
 require('../../assets/parts/admin-part/header-admin.php');
 require('../../assets/parts/admin-part/nav-admin.php');
 
-if (isset($_POST["search"])) {
-    $pengajar = search_pengajar($keyword, $awaldata, $dataPerHalaman);
-} else {
-    $pengajar = query_pengajar("SELECT pengajar.id, pengajar.nip, pengajar.nama_pengajar, pengajar.username, pengajar.email, pengajar.foto, pelajaran.nama_pelajaran
-                                FROM pengajar
-                                LEFT JOIN pengajar_pelajaran ON pengajar.id = pengajar_pelajaran.id_pengajar
-                                LEFT JOIN pelajaran ON pengajar_pelajaran.id_pelajaran = pelajaran.id 
-                                UNION
-                                SELECT pengajar.id, pengajar.nip, pengajar.nama_pengajar, pengajar.username, pengajar.email, pengajar.foto, pelajaran.nama_pelajaran
-                                FROM pengajar
-                                LEFT JOIN pengajar_pelajaran ON pengajar.id = pengajar_pelajaran.id_pengajar
-                                LEFT JOIN pelajaran ON pengajar_pelajaran.id_pelajaran = pelajaran.id");
-}
-// var_dump($pengajar); die();
 
-
-if( isset($_POST["search"]) ) {
-    $pengajar = search_pengajar($_POST["keyword"]);
-    
-}
+$pengajar = query_pengajar("SELECT pengajar.id, pengajar.nip, pengajar.nama_pengajar, pengajar.username, pengajar.email, pengajar.foto, pelajaran.nama_pelajaran
+                            FROM pengajar
+                            LEFT JOIN pengajar_pelajaran ON pengajar.id = pengajar_pelajaran.id_pengajar
+                            LEFT JOIN pelajaran ON pengajar_pelajaran.id_pelajaran = pelajaran.id ");
 ?>  
 <style>
     #form-search {

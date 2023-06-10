@@ -20,7 +20,7 @@
         responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'pdf'
         ]
     });
 })
@@ -32,7 +32,7 @@
         responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'pdf'
         ]
     });
 })   
