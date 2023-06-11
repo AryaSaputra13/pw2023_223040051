@@ -13,10 +13,10 @@ $jadwal = query_pengajar("SELECT * FROM jadwal");
     <table id="daftar-pengajar" class="table table-sm" style="text-align: center;">
         <thead>
             <tr>
-                <th class="col" scope="col">NO</th>
-                <th class="col" scope="col">Tanggal</th>
-                <th class="col" scope="col">Jam Msuk</th>
-                <th class="col" scope="col">Jam selesai</th>
+                <th class="col" scope="col" style="width:15px;">NO</th>
+                <th class="col col-md-4" scope="col">Tanggal</th>
+                <th class="col col-md-4" scope="col">Jam Msuk</th>
+                <th class="col col-md-4" scope="col">Jam selesai</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">

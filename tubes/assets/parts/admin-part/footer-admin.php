@@ -20,8 +20,32 @@
         responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+                    { 
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf"></i> PDF',
+                        className: 'btn btn-danger', 
+                        orientation: 'landscape',
+                        exportOptions: {
+                            columns: ':visible:not(.not-export-col)',
+                            modifier: {
+                                page: 'current'
+                            }
+                        },
+                        customize: function(doc) {
+                            var table = doc.content[1].table;
+                            var firstColumnWidth = 3;
+
+                            var header = doc.content[1].table.body[0];
+
+                            for (var i = 0; i < header.length; i++) {
+                            header[i].alignment = 'left';
+                            }
+
+                            table.widths = Array(table.body[0].length).fill('*');
+                            table.widths[0] = firstColumnWidth + '%';
+                        }
+                    }
+                ],
     });
 })
 </script>
@@ -32,11 +56,36 @@
         responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+                    { 
+                        extend: 'pdf',
+                        text: '<i class="fa fa-file-pdf"></i> PDF',
+                        className: 'btn btn-danger', 
+                        orientation: 'portrait',
+                        exportOptions: {
+                            columns: ':visible:not(.not-export-col)',
+                            modifier: {
+                                page: 'current'
+                            }
+                        },
+                        customize: function(doc) {
+                            var table = doc.content[1].table;
+                            var firstColumnWidth = 2;
+
+                            var header = doc.content[1].table.body[0];
+
+                            for (var i = 0; i < header.length; i++) {
+                            header[i].alignment = 'left';
+                            }
+
+                            table.widths = Array(table.body[0].length).fill('*');
+                            table.widths[0] = firstColumnWidth + '%';
+                        }
+                    }
+                ],
     });
 })   
 </script>
+
 
 
 </body>
